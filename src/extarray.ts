@@ -43,4 +43,9 @@ export class Extarray<T> {
     ): boolean {
         return Array.prototype.every.bind(this._array)(predicate, thisArg);
     }
+
+    fill(value: T, start?: number, end?: number): this {
+        Array.prototype.fill.bind(this._array)(value, start, end);
+        return this;
+    }
 }
