@@ -16,4 +16,8 @@ export class Extarray<T> {
     shorten() {
         return this._array;
     }
+
+    concat<U>(...items: U[]): Extarray<T | U> {
+        return Extarray.extend(Array.prototype.concat.bind(this._array)(items));
+    }
 }
