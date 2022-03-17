@@ -12,4 +12,8 @@ export class Extarray<T> {
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
         return arg instanceof Extarray;
     }
+
+    shorten() {
+        return this._array;
+    }
 }
