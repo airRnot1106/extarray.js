@@ -5,7 +5,7 @@ export class Extarray<T> {
         this._array = [...items];
     }
 
-    static extend<U>(array: U[]): Extarray<U> {
-        return new Extarray(...array);
+    static extend<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<U> {
+        return new Extarray(...Array.from(iterable));
     }
 }
