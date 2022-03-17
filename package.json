@@ -4,12 +4,12 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "start-dev": "npx ts-node-dev --respawn src/index.ts",
-      "build-cjs": "tsc -p tsconfig.cjs.json",
-      "build-mjs": "tsc -p tsconfig.mjs.json",
-      "build": "npm run build-cjs && npm run build-mjs",
-      "test": "npx ts-node-dev --respawn test/test.ts"
-  },
+        "start-dev": "npx ts-node-dev --respawn src/index.ts",
+        "build-cjs": "tsc -p tsconfig.cjs.json",
+        "build-mjs": "tsc -p tsconfig.mjs.json",
+        "build": "npm run build-cjs && npm run build-mjs",
+        "test": "npx ts-node-dev --respawn test/localTest.ts"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/airRnot1106/extarray.js.git"
