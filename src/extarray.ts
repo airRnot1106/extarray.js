@@ -32,4 +32,11 @@ export class Extarray<T> {
             yield* [...array.entries()].map((value) => Extarray.extend(value));
         })(this._array);
     }
+
+    every(
+        predicate: (value: T, index: number, array: T[]) => unknown,
+        thisArg?: unknown
+    ): boolean {
+        return Array.prototype.every.bind(this._array)(predicate, thisArg);
+    }
 }
