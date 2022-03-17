@@ -1,0 +1,33 @@
+{
+    "name": "extarray",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start-dev": "npx ts-node-dev --respawn src/index.ts",
+      "build-cjs": "tsc -p tsconfig.cjs.json",
+      "build-mjs": "tsc -p tsconfig.mjs.json",
+      "build": "npm run build-cjs && npm run build-mjs",
+      "test": "npx ts-node-dev --respawn test/test.ts"
+  },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/airRnot1106/extarray.js.git"
+    },
+    "keywords": [],
+    "author": "airRnot1106 <yngw.rintaro@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/airRnot1106/extarray.js/issues"
+    },
+    "homepage": "https://github.com/airRnot1106/extarray.js#readme",
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.10.0",
+        "@typescript-eslint/parser": "^5.10.0",
+        "eslint": "^8.7.0",
+        "eslint-config-prettier": "^8.3.0",
+        "prettier": "^2.5.1",
+        "ts-node-dev": "^1.1.8",
+        "typescript": "^4.6.2"
+    }
+}
