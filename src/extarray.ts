@@ -48,4 +48,13 @@ export class Extarray<T> {
         Array.prototype.fill.bind(this._array)(value, start, end);
         return this;
     }
+
+    filter(
+        predicate: (value: T, index: number, array: T[]) => unknown,
+        thisArg?: unknown
+    ): Extarray<T> {
+        return Extarray.extend(
+            Array.prototype.filter.bind(this._array)(predicate, thisArg)
+        );
+    }
 }
