@@ -13,6 +13,10 @@ export class Extarray<T> {
         return arg instanceof Extarray;
     }
 
+    *[Symbol.iterator]() {
+        yield* this._array;
+    }
+
     shorten() {
         return this._array;
     }
