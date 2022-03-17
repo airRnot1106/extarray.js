@@ -26,4 +26,10 @@ export class Extarray<T> {
             Array.prototype.copyWithin.bind(this._array)(target, start, end)
         );
     }
+
+    entries(): IterableIterator<Extarray<number | T>> {
+        return (function* (array) {
+            yield* [...array.entries()].map((value) => Extarray.extend(value));
+        })(this._array);
+    }
 }
