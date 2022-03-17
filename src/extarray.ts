@@ -57,4 +57,11 @@ export class Extarray<T> {
             Array.prototype.filter.bind(this._array)(predicate, thisArg)
         );
     }
+
+    find(
+        predicate: (value: T, index: number, obj: T[]) => unknown,
+        thisArg?: unknown
+    ): T | undefined {
+        return Array.prototype.find.bind(this._array)(predicate, thisArg);
+    }
 }
