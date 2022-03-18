@@ -71,4 +71,11 @@ export class Extarray<T> {
     ): number {
         return Array.prototype.findIndex.bind(this._array)(predicate, thisArg);
     }
+
+    forEach(
+        callbackfn: (value: T, index: number, array: T[]) => void,
+        thisArg?: unknown
+    ): void {
+        Array.prototype.forEach.bind(this._array)(callbackfn, thisArg);
+    }
 }
