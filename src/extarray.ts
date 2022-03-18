@@ -140,4 +140,17 @@ export class Extarray<T> {
         const func = Array.prototype.reduce.bind(this._array);
         return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
     }
+
+    reduceRight<U>(
+        callbackfn: (
+            previousValue: T,
+            currentValue: T,
+            currentIndex: number,
+            array: T[]
+        ) => U,
+        initialValue?: T
+    ): U {
+        const func = Array.prototype.reduceRight.bind(this._array);
+        return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
+    }
 }
