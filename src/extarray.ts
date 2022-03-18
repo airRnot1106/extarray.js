@@ -78,4 +78,11 @@ export class Extarray<T> {
     ): void {
         Array.prototype.forEach.bind(this._array)(callbackfn, thisArg);
     }
+
+    includes(searchElement: T, fromIndex?: number): boolean {
+        return Array.prototype.includes.bind(this._array)(
+            searchElement,
+            fromIndex
+        );
+    }
 }
