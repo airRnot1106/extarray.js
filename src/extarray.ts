@@ -175,4 +175,9 @@ export class Extarray<T> {
     ): boolean {
         return Array.prototype.some.bind(this._array)(predicate, thisArg);
     }
+
+    sort(compareFn?: (a: T, b: T) => number): this {
+        Array.prototype.sort.bind(this._array)(compareFn);
+        return this;
+    }
 }
