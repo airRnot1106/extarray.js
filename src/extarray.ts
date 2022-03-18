@@ -153,4 +153,9 @@ export class Extarray<T> {
         const func = Array.prototype.reduceRight.bind(this._array);
         return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
     }
+
+    reverse(): this {
+        Array.prototype.reverse.bind(this._array)();
+        return this;
+    }
 }
