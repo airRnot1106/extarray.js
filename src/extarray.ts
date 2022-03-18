@@ -123,4 +123,8 @@ export class Extarray<T> {
     pop(): T | undefined {
         return Array.prototype.pop.bind(this._array)();
     }
+
+    push(...items: T[]): number {
+        return Array.prototype.push.bind(this._array)(...items);
+    }
 }
