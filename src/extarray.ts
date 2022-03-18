@@ -180,4 +180,11 @@ export class Extarray<T> {
         Array.prototype.sort.bind(this._array)(compareFn);
         return this;
     }
+
+    splice(start: number, deleteCount?: number, ...items: T[]): Extarray<T> {
+        const func = Array.prototype.splice.bind(this._array);
+        return Extarray.extend(
+            deleteCount ? func(start, deleteCount, ...items) : func(start)
+        );
+    }
 }
