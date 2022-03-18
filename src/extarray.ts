@@ -13,10 +13,6 @@ export class Extarray<T> {
         return arg instanceof Extarray;
     }
 
-    *[Symbol.iterator]() {
-        yield* this._array;
-    }
-
     shorten() {
         return this._array;
     }
@@ -202,5 +198,9 @@ export class Extarray<T> {
 
     values(): IterableIterator<T> {
         return Array.prototype.values.bind(this._array)();
+    }
+
+    [Symbol.iterator]() {
+        return this.values();
     }
 }
