@@ -195,4 +195,8 @@ export class Extarray<T> {
     toString(): string {
         return Array.prototype.toString.bind(this._array)();
     }
+
+    unshift(...items: T[]): number {
+        return Array.prototype.unshift.bind(this._array)(...items);
+    }
 }
