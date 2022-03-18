@@ -64,4 +64,11 @@ export class Extarray<T> {
     ): T | undefined {
         return Array.prototype.find.bind(this._array)(predicate, thisArg);
     }
+
+    findIndex(
+        predicate: (value: T, index: number, obj: T[]) => unknown,
+        thisArg?: unknown
+    ): number {
+        return Array.prototype.findIndex.bind(this._array)(predicate, thisArg);
+    }
 }
