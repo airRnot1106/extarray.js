@@ -96,4 +96,8 @@ export class Extarray<T> {
     join(separator?: string): string {
         return Array.prototype.join.bind(this._array)(separator);
     }
+
+    keys(): IterableIterator<number> {
+        return Array.prototype.keys.bind(this._array)();
+    }
 }
