@@ -5,6 +5,10 @@ export class Extarray<T> {
         this._array = [...items];
     }
 
+    /* *******************************
+     * Static Methods
+     * ******************************/
+
     static extend<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<U> {
         return new Extarray(...Array.from(iterable));
     }
@@ -12,6 +16,10 @@ export class Extarray<T> {
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
         return arg instanceof Extarray;
     }
+
+    /* *******************************
+     * Accessor Method
+     * ******************************/
 
     get(index: number) {
         return this._array[index];
@@ -22,9 +30,9 @@ export class Extarray<T> {
         return this;
     }
 
-    shorten() {
-        return this._array;
-    }
+    /* *******************************
+     * Instance Basic Methods
+     * ******************************/
 
     concat<U>(...items: U[]): Extarray<T | U> {
         return Extarray.extend(Array.prototype.concat.bind(this._array)(items));
@@ -211,5 +219,13 @@ export class Extarray<T> {
 
     [Symbol.iterator]() {
         return this.values();
+    }
+
+    /* *******************************
+     * Instance Extra Methods
+     * ******************************/
+
+    shorten() {
+        return this._array;
     }
 }
