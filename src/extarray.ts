@@ -158,4 +158,8 @@ export class Extarray<T> {
         Array.prototype.reverse.bind(this._array)();
         return this;
     }
+
+    shift(): T | undefined {
+        return Array.prototype.shift.bind(this._array)();
+    }
 }
