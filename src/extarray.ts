@@ -100,4 +100,14 @@ export class Extarray<T> {
     keys(): IterableIterator<number> {
         return Array.prototype.keys.bind(this._array)();
     }
+
+    lastIndexOf(
+        searchElement: T,
+        fromIndex: number = this._array.length - 1
+    ): number {
+        return Array.prototype.lastIndexOf.bind(this._array)(
+            searchElement,
+            fromIndex
+        );
+    }
 }
