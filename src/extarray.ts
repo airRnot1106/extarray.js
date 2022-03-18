@@ -191,4 +191,8 @@ export class Extarray<T> {
     toLocaleString(): string {
         return Array.prototype.toLocaleString.bind(this._array)();
     }
+
+    toString(): string {
+        return Array.prototype.toString.bind(this._array)();
+    }
 }
