@@ -110,4 +110,13 @@ export class Extarray<T> {
             fromIndex
         );
     }
+
+    map<U>(
+        callbackfn: (value: T, index: number, array: T[]) => U,
+        thisArg?: unknown
+    ): Extarray<U> {
+        return Extarray.extend(
+            Array.prototype.map.bind(this._array)(callbackfn, thisArg)
+        );
+    }
 }
