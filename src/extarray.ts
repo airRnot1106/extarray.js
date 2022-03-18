@@ -13,6 +13,10 @@ export class Extarray<T> {
         return arg instanceof Extarray;
     }
 
+    get(index: number) {
+        return this._array[index];
+    }
+
     shorten() {
         return this._array;
     }
