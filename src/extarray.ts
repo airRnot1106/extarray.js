@@ -119,4 +119,8 @@ export class Extarray<T> {
             Array.prototype.map.bind(this._array)(callbackfn, thisArg)
         );
     }
+
+    pop(): T | undefined {
+        return Array.prototype.pop.bind(this._array)();
+    }
 }
