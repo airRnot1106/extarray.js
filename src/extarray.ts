@@ -162,4 +162,10 @@ export class Extarray<T> {
     shift(): T | undefined {
         return Array.prototype.shift.bind(this._array)();
     }
+
+    slice(start?: number, end?: number): Extarray<T> {
+        return Extarray.extend(
+            Array.prototype.slice.bind(this._array)(start, end)
+        );
+    }
 }
