@@ -168,4 +168,11 @@ export class Extarray<T> {
             Array.prototype.slice.bind(this._array)(start, end)
         );
     }
+
+    some(
+        predicate: (value: T, index: number, array: T[]) => unknown,
+        thisArg?: unknown
+    ): boolean {
+        return Array.prototype.some.bind(this._array)(predicate, thisArg);
+    }
 }
