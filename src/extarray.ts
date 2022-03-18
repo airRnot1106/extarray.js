@@ -17,6 +17,11 @@ export class Extarray<T> {
         return this._array[index];
     }
 
+    set(index: number, item: T): this {
+        this._array[index] = item;
+        return this;
+    }
+
     shorten() {
         return this._array;
     }
