@@ -92,4 +92,8 @@ export class Extarray<T> {
             fromIndex
         );
     }
+
+    join(separator?: string): string {
+        return Array.prototype.join.bind(this._array)(separator);
+    }
 }
