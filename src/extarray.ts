@@ -127,4 +127,17 @@ export class Extarray<T> {
     push(...items: T[]): number {
         return Array.prototype.push.bind(this._array)(...items);
     }
+
+    reduce<U>(
+        callbackfn: (
+            previousValue: T,
+            currentValue: T,
+            currentIndex: number,
+            array: T[]
+        ) => U,
+        initialValue?: T
+    ): U {
+        const func = Array.prototype.reduce.bind(this._array);
+        return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
+    }
 }
