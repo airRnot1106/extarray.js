@@ -187,4 +187,8 @@ export class Extarray<T> {
             deleteCount ? func(start, deleteCount, ...items) : func(start)
         );
     }
+
+    toLocaleString(): string {
+        return Array.prototype.toLocaleString.bind(this._array)();
+    }
 }
