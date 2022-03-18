@@ -85,4 +85,11 @@ export class Extarray<T> {
             fromIndex
         );
     }
+
+    indexOf(searchElement: T, fromIndex?: number): number {
+        return Array.prototype.indexOf.bind(this._array)(
+            searchElement,
+            fromIndex
+        );
+    }
 }
