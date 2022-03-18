@@ -199,4 +199,8 @@ export class Extarray<T> {
     unshift(...items: T[]): number {
         return Array.prototype.unshift.bind(this._array)(...items);
     }
+
+    values(): IterableIterator<T> {
+        return Array.prototype.values.bind(this._array)();
+    }
 }
