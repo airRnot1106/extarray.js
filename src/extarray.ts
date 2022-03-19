@@ -13,6 +13,17 @@ export class Extarray<T> {
         return new Extarray(...Array.from(iterable));
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    static extendAll<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<any> {
+        const root = this.extend(Array.from(iterable));
+        const extend = (value: U): unknown => {
+            if (!Array.isArray(value)) return value;
+            const extarray = Extarray.extend(value);
+            return extarray.map(extend);
+        };
+        return root.map(extend);
+    }
+
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
         return arg instanceof Extarray;
     }
