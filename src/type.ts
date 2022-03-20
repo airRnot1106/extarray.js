@@ -32,3 +32,7 @@ export type FlatExtarray<Arr, Depth extends number> = {
           >
         : Arr;
 }[Depth extends -1 ? 'done' : 'recur'];
+
+export type ExtendAll<Arr> = Arr extends ReadonlyArray<infer InferArr>
+    ? Extarray<ExtendAll<InferArr>>
+    : Arr;
