@@ -329,4 +329,9 @@ export class Extarray<T> {
         this._array = [...new Set(this._array)];
         return this;
     }
+
+    drop(): this {
+        this._array = [];
+        return this;
+    }
 }
