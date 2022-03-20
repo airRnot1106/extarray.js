@@ -257,6 +257,20 @@ export class Extarray<T> {
         return Extarray.extend(<FlatExtarray<T[], D>[]>flatted);
     }
 
+    flatMap<U, This = undefined>(
+        callback: (
+            this: This,
+            value: T,
+            index: number,
+            array: T[]
+        ) => U | ReadonlyArray<U>,
+        thisArg?: This
+    ): Extarray<U> {
+        return Extarray.extend(
+            Array.prototype.flatMap.bind(this._array)(callback, thisArg)
+        );
+    }
+
     /* *******************************
      * Instance Extra Methods
      * ******************************/
