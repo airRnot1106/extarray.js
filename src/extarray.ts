@@ -324,4 +324,9 @@ export class Extarray<T> {
             yield <T>this.draw();
         }
     }
+
+    unique(): this {
+        this._array = [...new Set(this._array)];
+        return this;
+    }
 }
