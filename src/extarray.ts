@@ -239,4 +239,25 @@ export class Extarray<T> {
     shorten() {
         return this._array;
     }
+
+    swap(index01: number, index02: number): this {
+        const array = this._array;
+        const index01Item = array[index01];
+        const index02Item = array[index02];
+        const isValidIndex = (
+            item: T | undefined,
+            index: number
+        ): item is T => {
+            if (!(index < array.length)) return false;
+            return true;
+        };
+        if (
+            !isValidIndex(index01Item, index01) ||
+            !isValidIndex(index02Item, index02)
+        )
+            throw new Error('Cannot swap with empty items');
+        array[index01] = index02Item;
+        array[index02] = index01Item;
+        return this;
+    }
 }
