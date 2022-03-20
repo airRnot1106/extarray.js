@@ -41,6 +41,10 @@ export class Extarray<T> {
         return this;
     }
 
+    get length() {
+        return this._array.length;
+    }
+
     /* *******************************
      * Instance Basic Methods
      * ******************************/
