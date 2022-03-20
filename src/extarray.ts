@@ -236,6 +236,10 @@ export class Extarray<T> {
         return this.values();
     }
 
+    at(index: number): T | undefined {
+        return Array.prototype.at.bind(this._array)(index);
+    }
+
     /* *******************************
      * Instance Extra Methods
      * ******************************/
