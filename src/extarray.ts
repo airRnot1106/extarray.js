@@ -1,3 +1,5 @@
+import { FlatExtarray } from './type';
+
 export class Extarray<T> {
     private _array: T[];
 
@@ -238,6 +240,21 @@ export class Extarray<T> {
 
     at(index: number): T | undefined {
         return Array.prototype.at.bind(this._array)(index);
+    }
+
+    flat<D extends number = 1>(depth?: D): Extarray<FlatExtarray<T[], D>> {
+        const reducer = (inputArray: unknown[], inputToFlat: unknown) => {
+            return inputArray.concat(
+                Array.isArray(inputToFlat) || Extarray.isExtarray(inputToFlat)
+                    ? [...inputToFlat]
+                    : inputToFlat
+            );
+        };
+        let flatted: unknown[] = this._array;
+        for (let i = 0; i < (depth ?? 1); i++) {
+            flatted = flatted.reduce(reducer, []);
+        }
+        return Extarray.extend(<FlatExtarray<T[], D>[]>flatted);
     }
 
     /* *******************************
