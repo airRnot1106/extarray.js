@@ -274,4 +274,10 @@ export class Extarray<T> {
         const drawIndex = Math.floor(Math.random() * this._array.length);
         return this._array.splice(drawIndex, 1)[0];
     }
+
+    *drawIter(): IterableIterator<T> {
+        while (this._array.length) {
+            yield <T>this.draw();
+        }
+    }
 }
