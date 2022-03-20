@@ -1,4 +1,4 @@
-import { FlatExtarray } from './type';
+import { ExtendAll, FlatExtarray } from './type';
 
 export class Extarray<T> {
     private _array: T[];
@@ -15,15 +15,20 @@ export class Extarray<T> {
         return new Extarray(...Array.from(iterable));
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static extendAll<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<any> {
-        const root = this.extend(Array.from(iterable));
-        const extend = (value: U): unknown => {
-            if (!Array.isArray(value)) return value;
-            const extarray = Extarray.extend(value);
-            return extarray.map(extend);
+    static extendAll<U>(iterable: Iterable<U> | ArrayLike<U>): ExtendAll<U[]> {
+        const root = Array.from(iterable);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extend = (input: unknown[]): any => {
+            const reducer = (inputArray: unknown[], inputToExtend: unknown) => {
+                return inputArray.concat(
+                    Array.isArray(inputToExtend)
+                        ? Extarray.extend([extend(inputToExtend)])
+                        : inputToExtend
+                );
+            };
+            return input.reduce(reducer, []);
         };
-        return root.map(extend);
+        return Extarray.extend(extend(root));
     }
 
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
