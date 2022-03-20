@@ -1,3 +1,5 @@
+import { FlatExtarray } from './type';
+
 export class Extarray<T> {
     private _array: T[];
 
@@ -39,6 +41,10 @@ export class Extarray<T> {
     set(index: number, item: T): this {
         this._array[index] = item;
         return this;
+    }
+
+    get length() {
+        return this._array.length;
     }
 
     /* *******************************
@@ -230,6 +236,39 @@ export class Extarray<T> {
 
     [Symbol.iterator]() {
         return this.values();
+    }
+
+    at(index: number): T | undefined {
+        return Array.prototype.at.bind(this._array)(index);
+    }
+
+    flat<D extends number = 1>(depth?: D): Extarray<FlatExtarray<T[], D>> {
+        const reducer = (inputArray: unknown[], inputToFlat: unknown) => {
+            return inputArray.concat(
+                Array.isArray(inputToFlat) || Extarray.isExtarray(inputToFlat)
+                    ? [...inputToFlat]
+                    : inputToFlat
+            );
+        };
+        let flatted: unknown[] = this._array;
+        for (let i = 0; i < (depth ?? 1); i++) {
+            flatted = flatted.reduce(reducer, []);
+        }
+        return Extarray.extend(<FlatExtarray<T[], D>[]>flatted);
+    }
+
+    flatMap<U, This = undefined>(
+        callback: (
+            this: This,
+            value: T,
+            index: number,
+            array: T[]
+        ) => U | ReadonlyArray<U>,
+        thisArg?: This
+    ): Extarray<U> {
+        return Extarray.extend(
+            Array.prototype.flatMap.bind(this._array)(callback, thisArg)
+        );
     }
 
     /* *******************************
