@@ -269,4 +269,9 @@ export class Extarray<T> {
         }
         return this;
     }
+
+    draw(): T | undefined {
+        const drawIndex = Math.floor(Math.random() * this._array.length);
+        return this._array.splice(drawIndex, 1)[0];
+    }
 }
