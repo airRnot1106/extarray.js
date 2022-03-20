@@ -13,6 +13,17 @@ export class Extarray<T> {
         return new Extarray(...Array.from(iterable));
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    static extendAll<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<any> {
+        const root = this.extend(Array.from(iterable));
+        const extend = (value: U): unknown => {
+            if (!Array.isArray(value)) return value;
+            const extarray = Extarray.extend(value);
+            return extarray.map(extend);
+        };
+        return root.map(extend);
+    }
+
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
         return arg instanceof Extarray;
     }
@@ -227,5 +238,46 @@ export class Extarray<T> {
 
     shorten() {
         return this._array;
+    }
+
+    swap(index01: number, index02: number): this {
+        const array = this._array;
+        const index01Item = array[index01];
+        const index02Item = array[index02];
+        const isValidIndex = (
+            item: T | undefined,
+            index: number
+        ): item is T => {
+            if (!(index < array.length)) return false;
+            return true;
+        };
+        if (
+            !isValidIndex(index01Item, index01) ||
+            !isValidIndex(index02Item, index02)
+        )
+            throw new Error('Cannot swap with empty items');
+        array[index01] = index02Item;
+        array[index02] = index01Item;
+        return this;
+    }
+
+    shuffle(): this {
+        const array = this._array;
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            this.swap(i, j);
+        }
+        return this;
+    }
+
+    draw(): T | undefined {
+        const drawIndex = Math.floor(Math.random() * this._array.length);
+        return this._array.splice(drawIndex, 1)[0];
+    }
+
+    *drawIter(): IterableIterator<T> {
+        while (this._array.length) {
+            yield <T>this.draw();
+        }
     }
 }
