@@ -150,4 +150,4 @@ out
 misc
 dist
 
-test/localTest.ts
+tests/local
