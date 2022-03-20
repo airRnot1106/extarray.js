@@ -260,4 +260,13 @@ export class Extarray<T> {
         array[index02] = index01Item;
         return this;
     }
+
+    shuffle(): this {
+        const array = this._array;
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            this.swap(i, j);
+        }
+        return this;
+    }
 }
