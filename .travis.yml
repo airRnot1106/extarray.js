@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+    - stable
+    - '16'
+env:
+    global:
+        secure: a14o8EKDeTbXt0we1Hbd2ES/GxS0V05mv/6X9LmOsJ9rWjZ6gLwAXGp4ghuo6LIlv5gZjGAz5f5P+gHXZtP4Q4NKcEOUF0sgfQiygK23+IDvoicGrkZvgIPRKXxaDs6XAOUg3O6AI7yB0zfnblnSCLvEGYybxBandsr8VB76Xau8v9K6MzdDtmEnyQ6BdB2shY6vZ1StUSXoVapWOdh9y3sck8ZmlvvGyj1KJJ4lP7EJzk0YuJZreFEL0VRXS1sS6liBF20DPjvCj2Wom1dfrCw/7nUtGbd2m/PETZapbjlMUZROLZXWZqWDZ6ozM+44igQ7YasjUPphPRE1dshwbZf+C2gAzUbEWyELFtElgI7CmQQZn9Hc68gjliq7bWSXIX4mX7c6eW7o1sinS8wx5v8p1iks90NZpMOEmEgbUpLIRpc91s149NU3YsVobHCfk968ut+2Ejlun0c3WN1Vh7/QbYyuG6hnw4HbuB6MNKAEJR+o+H2mVJjvslG9TSVM72TBdXeMTVh7FXyyRXur/mRuR567H8WG70tY7cwAOOUKolls0sYH6eGTEhpp0EmoEItHDCgOpBBWnV946B27RlW6nOT/4aRiCoxAU7OUKlYazWuuyy+i3VKGDKIor+4rbs6Ytfd871FmoV2QNC6Cb/EtBTdKm5mMOqDB3LwyUS8=
+install:
+    - npm install
+script:
+    - npm run coverage
+before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
+after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
