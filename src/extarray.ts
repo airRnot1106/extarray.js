@@ -267,6 +267,13 @@ export class Extarray<T> {
         let flatted: unknown[] = this._array;
         for (let i = 0; i < (depth ?? 1); i++) {
             flatted = flatted.reduce(reducer, []);
+            if (
+                flatted.every(
+                    (value) =>
+                        !Extarray.isExtarray(value) && !Array.isArray(value)
+                )
+            )
+                break;
         }
         return Extarray.extend(<FlatExtarray<T[], D>[]>flatted);
     }
