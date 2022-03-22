@@ -22,7 +22,7 @@ export class Extarray<T> {
             const reducer = (inputArray: unknown[], inputToExtend: unknown) => {
                 return inputArray.concat(
                     Array.isArray(inputToExtend)
-                        ? Extarray.extend([extend(inputToExtend)])
+                        ? Extarray.extend(extend(inputToExtend))
                         : inputToExtend
                 );
             };
