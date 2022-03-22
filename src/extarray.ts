@@ -22,7 +22,7 @@ export class Extarray<T> {
             const reducer = (inputArray: unknown[], inputToExtend: unknown) => {
                 return inputArray.concat(
                     Array.isArray(inputToExtend)
-                        ? Extarray.extend([extend(inputToExtend)])
+                        ? Extarray.extend(extend(inputToExtend))
                         : inputToExtend
                 );
             };
@@ -57,7 +57,14 @@ export class Extarray<T> {
      * ******************************/
 
     concat<U>(...items: U[]): Extarray<T | U> {
-        return Extarray.extend(Array.prototype.concat.bind(this._array)(items));
+        return Extarray.extend(
+            Array.prototype.concat.bind(this._array)(
+                items.flatMap((value) => {
+                    if (Extarray.isExtarray(value)) return [...value];
+                    return value;
+                })
+            )
+        );
     }
 
     copyWithin(target: number, start: number, end?: number): Extarray<T> {
@@ -219,7 +226,9 @@ export class Extarray<T> {
     splice(start: number, deleteCount?: number, ...items: T[]): Extarray<T> {
         const func = Array.prototype.splice.bind(this._array);
         return Extarray.extend(
-            deleteCount ? func(start, deleteCount, ...items) : func(start)
+            deleteCount !== undefined
+                ? func(start, deleteCount, ...items)
+                : func(start)
         );
     }
 
@@ -258,22 +267,28 @@ export class Extarray<T> {
         let flatted: unknown[] = this._array;
         for (let i = 0; i < (depth ?? 1); i++) {
             flatted = flatted.reduce(reducer, []);
+            if (
+                flatted.every(
+                    (value) =>
+                        !Extarray.isExtarray(value) && !Array.isArray(value)
+                )
+            )
+                break;
         }
         return Extarray.extend(<FlatExtarray<T[], D>[]>flatted);
     }
 
     flatMap<U, This = undefined>(
-        callback: (
-            this: This,
-            value: T,
-            index: number,
-            array: T[]
-        ) => U | ReadonlyArray<U>,
+        callback: (this: This, value: T, index: number, array: T[]) => U,
         thisArg?: This
-    ): Extarray<U> {
+    ): Extarray<
+        U extends readonly (infer InferArr)[] | Extarray<infer InferArr>
+            ? InferArr
+            : U
+    > {
         return Extarray.extend(
-            Array.prototype.flatMap.bind(this._array)(callback, thisArg)
-        );
+            Array.prototype.map.bind(this._array)(callback, thisArg)
+        ).flat(1);
     }
 
     /* *******************************
@@ -292,7 +307,7 @@ export class Extarray<T> {
             item: T | undefined,
             index: number
         ): item is T => {
-            if (!(index < array.length)) return false;
+            if (!(index >= 0 && index < array.length)) return false;
             return true;
         };
         if (
