@@ -279,17 +279,16 @@ export class Extarray<T> {
     }
 
     flatMap<U, This = undefined>(
-        callback: (
-            this: This,
-            value: T,
-            index: number,
-            array: T[]
-        ) => U | ReadonlyArray<U>,
+        callback: (this: This, value: T, index: number, array: T[]) => U,
         thisArg?: This
-    ): Extarray<U> {
+    ): Extarray<
+        U extends readonly (infer InferArr)[] | Extarray<infer InferArr>
+            ? InferArr
+            : U
+    > {
         return Extarray.extend(
-            Array.prototype.flatMap.bind(this._array)(callback, thisArg)
-        );
+            Array.prototype.map.bind(this._array)(callback, thisArg)
+        ).flat(1);
     }
 
     /* *******************************
