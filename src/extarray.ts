@@ -226,7 +226,9 @@ export class Extarray<T> {
     splice(start: number, deleteCount?: number, ...items: T[]): Extarray<T> {
         const func = Array.prototype.splice.bind(this._array);
         return Extarray.extend(
-            deleteCount ? func(start, deleteCount, ...items) : func(start)
+            deleteCount !== undefined
+                ? func(start, deleteCount, ...items)
+                : func(start)
         );
     }
 
