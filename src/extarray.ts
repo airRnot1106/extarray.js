@@ -307,7 +307,7 @@ export class Extarray<T> {
             item: T | undefined,
             index: number
         ): item is T => {
-            if (!(index < array.length)) return false;
+            if (!(index >= 0 && index < array.length)) return false;
             return true;
         };
         if (
