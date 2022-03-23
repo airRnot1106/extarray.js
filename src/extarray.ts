@@ -1,5 +1,12 @@
 import { ExtendAll, FlatExtarray } from './type';
 
+/**
+ * Extarray class that extends arrays.
+ *
+ * @template T
+ * @class Extarray
+ * @export
+ */
 export class Extarray<T> {
     private _array: T[];
 
