@@ -580,6 +580,18 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Removes elements from an extarray and, if necessary, inserts new elements
+     * in their place, returning the deleted elements.
+     *
+     * @memberof Extarray
+     * @param {number} start The zero-based location in the extarray from which
+     *   to start removing elements.
+     * @param {number} [deleteCount] The number of elements to remove.
+     * @param {...T[]} items Elements to insert into the extarray in place of
+     *   the deleted elements.
+     * @returns {any} {Extarray<T>} An extarray containing the elements that were deleted.
+     */
     splice(start: number, deleteCount?: number, ...items: T[]): Extarray<T> {
         const func = Array.prototype.splice.bind(this._array);
         return Extarray.extend(
