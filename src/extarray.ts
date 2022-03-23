@@ -518,6 +518,19 @@ export class Extarray<T> {
         return Array.prototype.shift.bind(this._array)();
     }
 
+    /**
+     * Returns a copy of a section of an extarray. For both start and end, a
+     * negative index can be used to indicate an offset from the end of the
+     * extarray. For example, -2 refers to the second to last element of the extarray.
+     *
+     * @memberof Extarray
+     * @param {number} [start] The beginning index of the specified portion of
+     *   the extarray. If start is undefined, then the slice begins at index 0.
+     * @param {number} [end] The end index of the specified portion of the
+     *   extarray. This is exclusive of the element at the index 'end'. If end
+     *   is undefined, then the slice extends to the end of the extarray.
+     * @returns {any} {Extarray<T>}
+     */
     slice(start?: number, end?: number): Extarray<T> {
         return Extarray.extend(
             Array.prototype.slice.bind(this._array)(start, end)
