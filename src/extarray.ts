@@ -128,6 +128,16 @@ export class Extarray<T> {
      * Instance Basic Methods
      * ******************************/
 
+    /**
+     * Combines two or more arrays. This method returns a new extarray without
+     * modifying any existing extarrays. If an Extarray is passed, it is expanded.
+     *
+     * @memberof Extarray
+     * @template U
+     * @param {...U[]} items Additional arrays and/or items to add to the end of
+     *   the extarray.
+     * @returns {any} {(Extarray<T | U>)}
+     */
     concat<U>(...items: U[]): Extarray<T | U> {
         return Extarray.extend(
             Array.prototype.concat.bind(this._array)(
