@@ -634,6 +634,12 @@ export class Extarray<T> {
         return Array.prototype.unshift.bind(this._array)(...items);
     }
 
+    /**
+     * Returns an iterable of values in the extarray
+     *
+     * @memberof Extarray
+     * @returns {any} {IterableIterator<T>}
+     */
     values(): IterableIterator<T> {
         return Array.prototype.values.bind(this._array)();
     }
