@@ -775,6 +775,13 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Shuffle the extarray with the Fisher-Yates algorithm. This changes the
+     * existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} This
+     */
     shuffle(): this {
         const array = this._array;
         for (let i = array.length - 1; i > 0; i--) {
