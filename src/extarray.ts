@@ -697,6 +697,24 @@ export class Extarray<T> {
         return Extarray.extend(<FlatExtarray<T[], D>[]>flatted);
     }
 
+    /**
+     * Calls a defined callback function on each element of an extarray. Then,
+     * flattens the result into a new extarray. This is identical to a map
+     * followed by flat with depth 1. Note that the flat here is Extarray#flat,
+     * not Array#flat.
+     *
+     * @memberof Extarray
+     * @template U
+     * @template This
+     * @param {(this: This, value: T, index: number, array: T[]) => U} callback
+     *   A function that accepts up to three arguments. The flatMap method calls
+     *   the callback function one time for each element in the extarray.
+     * @param {This} [thisArg] An object to which the this keyword can refer in
+     *   the callback function. If thisArg is omitted, undefined is used as the
+     *   this value.
+     * @returns {any} {(Extarray< U extends readonly (infer InferArr)[] |
+     *   Extarray<infer InferArr> ? InferArr)}
+     */
     flatMap<U, This = undefined>(
         callback: (this: This, value: T, index: number, array: T[]) => U,
         thisArg?: This
