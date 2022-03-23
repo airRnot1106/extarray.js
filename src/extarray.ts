@@ -380,6 +380,20 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Calls a defined callback function on each element of an extarray, and
+     * returns an extarray that contains the results.
+     *
+     * @memberof Extarray
+     * @template U
+     * @param {(value: T, index: number, array: T[]) => U} callbackfn A function
+     *   that accepts up to three arguments. The map method calls the callbackfn
+     *   function one time for each element in the extarray.
+     * @param {unknown} [thisArg] An object to which the this keyword can refer
+     *   in the callbackfn function. If thisArg is omitted, undefined is used as
+     *   the this value.
+     * @returns {any} {Extarray<U>}
+     */
     map<U>(
         callbackfn: (value: T, index: number, array: T[]) => U,
         thisArg?: unknown
