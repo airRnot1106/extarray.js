@@ -732,7 +732,13 @@ export class Extarray<T> {
      * Instance Extra Methods
      * ******************************/
 
-    shorten() {
+    /**
+     * Returns an unextended normal array.
+     *
+     * @memberof Extarray
+     * @returns {any} {T[]}
+     */
+    shorten(): T[] {
         return this._array;
     }
 
