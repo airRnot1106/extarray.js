@@ -559,6 +559,22 @@ export class Extarray<T> {
         return Array.prototype.some.bind(this._array)(predicate, thisArg);
     }
 
+    /**
+     * Sorts an extarray in place. This method mutates the extarray and returns
+     * a reference to the same extarray.
+     *
+     * @memberof Extarray
+     * @param {(a: T, b: T) => number} [compareFn] Function used to determine
+     *   the order of the elements. It is expected to return a negative value if
+     *   the first argument is less than the second argument, zero if they're
+     *   equal, and a positive value otherwise. If omitted, the elements are
+     *   sorted in ascending, ASCII character order.
+     *
+     *   ```ts
+     *   [11, 2, 22, 1].sort((a, b) => a - b);
+     *   ```
+     * @returns {any} {this}
+     */
     sort(compareFn?: (a: T, b: T) => number): this {
         Array.prototype.sort.bind(this._array)(compareFn);
         return this;
