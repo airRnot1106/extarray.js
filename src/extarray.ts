@@ -99,6 +99,15 @@ export class Extarray<T> {
         return this._array[index];
     }
 
+    /**
+     * Sets the element at the specified index. This is an alternative to the
+     * following syntax for normal arrays.
+     *
+     * @memberof Extarray
+     * @param {number} index Index to set the element.
+     * @param {T} item Element to set.
+     * @returns {any} {this}
+     */
     set(index: number, item: T): this {
         this._array[index] = item;
         return this;
