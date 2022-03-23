@@ -10,6 +10,14 @@ import { ExtendAll, FlatExtarray } from './type';
 export class Extarray<T> {
     private _array: T[];
 
+    /**
+     * Creates an instance of Extarray. However, unlike the constructor of a
+     * normal array, it is not possible to create an empty array with a single
+     * numeric argument. It works the same way as Array.of.
+     *
+     * @memberof Extarray
+     * @param {...T[]} items
+     */
     constructor(...items: T[]) {
         this._array = [...items];
     }
