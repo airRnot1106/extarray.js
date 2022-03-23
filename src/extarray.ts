@@ -263,6 +263,21 @@ export class Extarray<T> {
         return Array.prototype.find.bind(this._array)(predicate, thisArg);
     }
 
+    /**
+     * Returns the index of the first element in the extarray where predicate is
+     * true, and -1 otherwise.
+     *
+     * @memberof Extarray
+     * @param {(value: T, index: number, obj: T[]) => unknown} predicate Find
+     *   calls predicate once for each element of the extarray, in ascending
+     *   order, until it finds one where predicate returns true. If such an
+     *   element is found, findIndex immediately returns that element index.
+     *   Otherwise, findIndex returns -1.
+     * @param {unknown} [thisArg] If provided, it will be used as the this value
+     *   for each invocation of predicate. If it is not provided, undefined is
+     *   used instead.
+     * @returns {any} {number}
+     */
     findIndex(
         predicate: (value: T, index: number, obj: T[]) => unknown,
         thisArg?: unknown
