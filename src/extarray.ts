@@ -742,6 +742,18 @@ export class Extarray<T> {
         return this._array;
     }
 
+    /**
+     * Swap the values of two indices. This changes the existing extarray.
+     *
+     * @memberof Extarray
+     * @param {number} index01 Index of the target to be swapped. If a negative
+     *   number or a number greater than the length of the extarray is
+     *   specified, an error is thrown.
+     * @param {number} index02 Index of the target to be swapped. If a negative
+     *   number or a number greater than the length of the extarray is
+     *   specified, an error is thrown.
+     * @returns {any} This
+     */
     swap(index01: number, index02: number): this {
         const array = this._array;
         const index01Item = array[index01];
