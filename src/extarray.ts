@@ -403,6 +403,13 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Removes the last element from an extarray and returns it. If the extarray
+     * is empty, undefined is returned and the extarray is not modified.
+     *
+     * @memberof Extarray
+     * @returns {any} {(T | undefined)}
+     */
     pop(): T | undefined {
         return Array.prototype.pop.bind(this._array)();
     }
