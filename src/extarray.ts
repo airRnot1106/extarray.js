@@ -426,6 +426,27 @@ export class Extarray<T> {
         return Array.prototype.push.bind(this._array)(...items);
     }
 
+    /**
+     * Calls the specified callback function for all the elements in an
+     * extarray. The return value of the callback function is the accumulated
+     * result, and is provided as an argument in the next call to the callback function.
+     *
+     * @memberof Extarray
+     * @template U
+     * @param {(
+     *     previousValue: T,
+     *     currentValue: T,
+     *     currentIndex: number,
+     *     array: T[]
+     * ) => U} callbackfn
+     *   A function that accepts up to four arguments. The reduce method calls the
+     *   callbackfn function one time for each element in the extarray.
+     * @param {T} [initialValue] F initialValue is specified, it is used as the
+     *   initial value to start the accumulation. The first call to the
+     *   callbackfn function provides this value as an argument instead of an
+     *   extarray value.
+     * @returns {any} {U}
+     */
     reduce<U>(
         callbackfn: (
             previousValue: T,
