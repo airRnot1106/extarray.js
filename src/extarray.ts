@@ -612,6 +612,12 @@ export class Extarray<T> {
         return Array.prototype.toLocaleString.bind(this._array)();
     }
 
+    /**
+     * Returns a string representation of an extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {string}
+     */
     toString(): string {
         return Array.prototype.toString.bind(this._array)();
     }
