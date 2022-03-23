@@ -219,6 +219,19 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Returns the elements of an extarray that meet the condition specified in
+     * a callback function.
+     *
+     * @memberof Extarray
+     * @param {(value: T, index: number, array: T[]) => unknown} predicate A
+     *   function that accepts up to three arguments. The filter method calls
+     *   the predicate function one time for each element in the extarray.
+     * @param {unknown} [thisArg] An object to which the this keyword can refer
+     *   in the predicate function. If thisArg is omitted, undefined is used as
+     *   the this value.
+     * @returns {any} {Extarray<T>}
+     */
     filter(
         predicate: (value: T, index: number, array: T[]) => unknown,
         thisArg?: unknown
