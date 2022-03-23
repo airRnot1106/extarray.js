@@ -26,6 +26,16 @@ export class Extarray<T> {
      * Static Methods
      * ******************************/
 
+    /**
+     * Extends a normal array to Extarray. This method does not change the
+     * existing arrays, but instead returns a new extarray.
+     *
+     * @memberof Extarray
+     * @template U
+     * @param {Iterable<U> | ArrayLike<U>} iterable
+     * @returns {any} {Extarray<U>}
+     * @static
+     */
     static extend<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<U> {
         return new Extarray(...Array.from(iterable));
     }
