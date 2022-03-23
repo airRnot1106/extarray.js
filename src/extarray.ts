@@ -303,6 +303,16 @@ export class Extarray<T> {
         Array.prototype.forEach.bind(this._array)(callbackfn, thisArg);
     }
 
+    /**
+     * Determines whether an extarray includes a certain element, returning true
+     * or false as appropriate.
+     *
+     * @memberof Extarray
+     * @param {T} searchElement The element to search for.
+     * @param {number} [fromIndex] The position in this extarray at which to
+     *   begin searching for searchElement.
+     * @returns {any} {boolean}
+     */
     includes(searchElement: T, fromIndex?: number): boolean {
         return Array.prototype.includes.bind(this._array)(
             searchElement,
