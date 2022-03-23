@@ -149,6 +149,19 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Returns the this object after copying a section of the extarray
+     * identified by start and end to the same extarray starting at position target.
+     *
+     * @memberof Extarray
+     * @param {number} target If target is negative, it is treated as
+     *   length+target where length is the length of the extarray.
+     * @param {number} start If start is negative, it is treated as
+     *   length+start. If end is negative, it is treated as length+end.
+     * @param {number} [end] If not specified, length of the this object is used
+     *   as its default value.
+     * @returns {any} {Extarray<T>}
+     */
     copyWithin(target: number, start: number, end?: number): Extarray<T> {
         return Extarray.extend(
             Array.prototype.copyWithin.bind(this._array)(target, start, end)
