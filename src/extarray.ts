@@ -40,6 +40,15 @@ export class Extarray<T> {
         return new Extarray(...Array.from(iterable));
     }
 
+    /**
+     * Extend all sub-array elements recursively to an extarray.
+     *
+     * @memberof Extarray
+     * @template U
+     * @param {Iterable<U> | ArrayLike<U>} iterable
+     * @returns {any} {ExtendAll<U[]>}
+     * @static
+     */
     static extendAll<U>(iterable: Iterable<U> | ArrayLike<U>): ExtendAll<U[]> {
         const root = Array.from(iterable);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
