@@ -644,7 +644,13 @@ export class Extarray<T> {
         return Array.prototype.values.bind(this._array)();
     }
 
-    [Symbol.iterator]() {
+    /**
+     * It works the same as a normal array iterator.
+     *
+     * @memberof Extarray
+     * @returns {any}
+     */
+    [Symbol.iterator](): IterableIterator<T> {
         return this.values();
     }
 
