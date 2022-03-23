@@ -8,6 +8,13 @@ import { ExtendAll, FlatExtarray } from './type';
  * @export
  */
 export class Extarray<T> {
+    /**
+     * Internally referenced array. It cannot be referenced externally.
+     *
+     * @private
+     * @memberof Extarray
+     * @type {T[]}
+     */
     private _array: T[];
 
     /**
