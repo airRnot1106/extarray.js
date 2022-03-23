@@ -83,7 +83,19 @@ export class Extarray<T> {
      * Accessor Method
      * ******************************/
 
-    get(index: number) {
+    /**
+     * Gets the element at the specified index. This is an alternative to the
+     * following syntax for normal arrays.
+     *
+     * ```ts
+     * array[number];
+     * ```
+     *
+     * @memberof Extarray
+     * @param {number} index Index of element to get.
+     * @returns {any}
+     */
+    get(index: number): T | undefined {
         return this._array[index];
     }
 
