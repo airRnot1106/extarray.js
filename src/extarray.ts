@@ -791,6 +791,14 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Pops an element of an extarray at random. The popped element is removed
+     * from the existing extarray. If there are no elements in the extarray,
+     * undefined is returned.
+     *
+     * @memberof Extarray
+     * @returns {any} This
+     */
     draw(): T | undefined {
         const drawIndex = Math.floor(Math.random() * this._array.length);
         return this._array.splice(drawIndex, 1)[0];
