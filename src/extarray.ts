@@ -537,6 +537,21 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Determines whether the specified callback function returns true for any
+     * element of an extarray.
+     *
+     * @memberof Extarray
+     * @param {(value: T, index: number, array: T[]) => unknown} predicate A
+     *   function that accepts up to three arguments. The some method calls the
+     *   predicate function for each element in the extarray until the predicate
+     *   returns a value which is coercible to the Boolean value true, or until
+     *   the end of the extarray.
+     * @param {unknown} [thisArg] An object to which the this keyword can refer
+     *   in the predicate function. If thisArg is omitted, undefined is used as
+     *   the this value.
+     * @returns {any} {boolean}
+     */
     some(
         predicate: (value: T, index: number, array: T[]) => unknown,
         thisArg?: unknown
