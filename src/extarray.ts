@@ -65,6 +65,16 @@ export class Extarray<T> {
         return Extarray.extend(extend(root));
     }
 
+    /**
+     * Determines whether the passed value is an Extarray.
+     *
+     * @memberof Extarray
+     * @template T
+     * @template U
+     * @param {T | Extarray<U>} arg Value to determine if Extarray.
+     * @returns {any} {arg is Extarray<U>}
+     * @static
+     */
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
         return arg instanceof Extarray;
     }
