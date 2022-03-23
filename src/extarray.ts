@@ -827,6 +827,12 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Empties an existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} This
+     */
     drop(): this {
         this._array = [];
         return this;
