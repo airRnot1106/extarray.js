@@ -337,6 +337,14 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Adds all the elements of an extarray separated by the specified separator string.
+     *
+     * @memberof Extarray
+     * @param {string} [separator] A string used to separate one element of an
+     *   extarray from the next in the.
+     * @returns {any} {string}
+     */
     join(separator?: string): string {
         return Array.prototype.join.bind(this._array)(separator);
     }
