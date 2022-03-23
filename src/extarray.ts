@@ -414,6 +414,14 @@ export class Extarray<T> {
         return Array.prototype.pop.bind(this._array)();
     }
 
+    /**
+     * Appends new elements to the end of an extarray, and returns the new
+     * length of the extarray.
+     *
+     * @memberof Extarray
+     * @param {...T[]} items New elements to add to the extarray.
+     * @returns {any} {number}
+     */
     push(...items: T[]): number {
         return Array.prototype.push.bind(this._array)(...items);
     }
