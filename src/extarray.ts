@@ -359,6 +359,17 @@ export class Extarray<T> {
         return Array.prototype.keys.bind(this._array)();
     }
 
+    /**
+     * Returns the index of the last occurrence of a specified value in an
+     * extarray, or -1 if it is not present.
+     *
+     * @memberof Extarray
+     * @param {T} searchElement The value to locate in the extarray.
+     * @param {number} [fromIndex=this._array.length - 1] The extarray index at
+     *   which to begin searching backward. If fromIndex is omitted, the search
+     *   starts at the last index in the extarray. Default is `this._array.length - 1`
+     * @returns {any} {number}
+     */
     lastIndexOf(
         searchElement: T,
         fromIndex: number = this._array.length - 1
