@@ -622,6 +622,14 @@ export class Extarray<T> {
         return Array.prototype.toString.bind(this._array)();
     }
 
+    /**
+     * Inserts new elements at the start of an extarray, and returns the new
+     * length of the extarray.
+     *
+     * @memberof Extarray
+     * @param {...T[]} items Elements to insert at the start of the extarray.
+     * @returns {any} {number}
+     */
     unshift(...items: T[]): number {
         return Array.prototype.unshift.bind(this._array)(...items);
     }
