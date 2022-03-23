@@ -495,6 +495,13 @@ export class Extarray<T> {
         return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
     }
 
+    /**
+     * Reverses the elements in an extarray in place. This method mutates the
+     * extarray and returns a reference to the same extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {this}
+     */
     reverse(): this {
         Array.prototype.reverse.bind(this._array)();
         return this;
