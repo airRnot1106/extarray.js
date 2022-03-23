@@ -816,6 +816,12 @@ export class Extarray<T> {
         }
     }
 
+    /**
+     * Remove duplicate elements from an existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} This
+     */
     unique(): this {
         this._array = [...new Set(this._array)];
         return this;
