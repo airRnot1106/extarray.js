@@ -320,6 +320,16 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Returns the index of the first occurrence of a value in an extarray, or
+     * -1 if it is not present.
+     *
+     * @memberof Extarray
+     * @param {T} searchElement The value to locate in the extarray.
+     * @param {number} [fromIndex] The extarray index at which to begin the
+     *   search. If fromIndex is omitted, the search starts at index 0.
+     * @returns {any} {number}
+     */
     indexOf(searchElement: T, fromIndex?: number): number {
         return Array.prototype.indexOf.bind(this._array)(
             searchElement,
