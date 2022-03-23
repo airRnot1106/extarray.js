@@ -666,6 +666,15 @@ export class Extarray<T> {
         return Array.prototype.at.bind(this._array)(index);
     }
 
+    /**
+     * Returns a new extarray with all sub-array and sub-extarray elements
+     * concatenated into it recursively up to the specified depth.
+     *
+     * @memberof Extarray
+     * @template D
+     * @param {D} [depth] The maximum recursion depth
+     * @returns {any} {Extarray<FlatExtarray<T[], D>>}
+     */
     flat<D extends number = 1>(depth?: D): Extarray<FlatExtarray<T[], D>> {
         const reducer = (inputArray: unknown[], inputToFlat: unknown) => {
             return inputArray.concat(
