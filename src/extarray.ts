@@ -113,6 +113,13 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Gets the length of the extarray. This is a number one higher than the
+     * highest index in the extarray.
+     *
+     * @memberof Extarray
+     * @readonly
+     */
     get length() {
         return this._array.length;
     }
