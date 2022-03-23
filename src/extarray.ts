@@ -654,6 +654,14 @@ export class Extarray<T> {
         return this.values();
     }
 
+    /**
+     * Returns the item located at the specified index.
+     *
+     * @memberof Extarray
+     * @param {number} index The zero-based index of the desired code unit. A
+     *   negative index will count back from the last item.
+     * @returns {any} {(T | undefined)}
+     */
     at(index: number): T | undefined {
         return Array.prototype.at.bind(this._array)(index);
     }
