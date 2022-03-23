@@ -285,6 +285,17 @@ export class Extarray<T> {
         return Array.prototype.findIndex.bind(this._array)(predicate, thisArg);
     }
 
+    /**
+     * Performs the specified action for each element in an extarray.
+     *
+     * @memberof Extarray
+     * @param {(value: T, index: number, array: T[]) => void} callbackfn A
+     *   function that accepts up to three arguments. forEach calls the
+     *   callbackfn function one time for each element in the extarray.
+     * @param {unknown} [thisArg] An object to which the this keyword can refer
+     *   in the callbackfn function. If thisArg is omitted, undefined is used as
+     *   the this value.
+     */
     forEach(
         callbackfn: (value: T, index: number, array: T[]) => void,
         thisArg?: unknown
