@@ -349,6 +349,12 @@ export class Extarray<T> {
         return Array.prototype.join.bind(this._array)(separator);
     }
 
+    /**
+     * Returns an iterable of keys in the extarray
+     *
+     * @memberof Extarray
+     * @returns {any} {IterableIterator<number>}
+     */
     keys(): IterableIterator<number> {
         return Array.prototype.keys.bind(this._array)();
     }
