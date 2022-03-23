@@ -507,6 +507,13 @@ export class Extarray<T> {
         return this;
     }
 
+    /**
+     * Removes the first element from an extarray and returns it. If the
+     * extarray is empty, undefined is returned and the extarray is not modified.
+     *
+     * @memberof Extarray
+     * @returns {any} {(T | undefined)}
+     */
     shift(): T | undefined {
         return Array.prototype.shift.bind(this._array)();
     }
