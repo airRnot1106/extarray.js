@@ -804,6 +804,12 @@ export class Extarray<T> {
         return this._array.splice(drawIndex, 1)[0];
     }
 
+    /**
+     * Returns the iterator of Extarray#draw.
+     *
+     * @memberof Extarray
+     * @returns {any} {IterableIterator<T>}
+     */
     *drawIter(): IterableIterator<T> {
         while (this._array.length) {
             yield <T>this.draw();
