@@ -180,6 +180,20 @@ export class Extarray<T> {
         })(this._array);
     }
 
+    /**
+     * Determines whether all the members of an extarray satisfy the specified test.
+     *
+     * @memberof Extarray
+     * @param {(value: T, index: number, array: T[]) => unknown} predicate A
+     *   function that accepts up to three arguments. The every method calls the
+     *   predicate function for each element in the extarray until the predicate
+     *   returns a value which is coercible to the Boolean value false, or until
+     *   the end of the extarray.
+     * @param {unknown} [thisArg] An object to which the this keyword can refer
+     *   in the predicate function. If thisArg is omitted, undefined is used as
+     *   the this value.
+     * @returns {any} {boolean}
+     */
     every(
         predicate: (value: T, index: number, array: T[]) => unknown,
         thisArg?: unknown
