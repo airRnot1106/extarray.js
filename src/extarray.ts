@@ -201,6 +201,19 @@ export class Extarray<T> {
         return Array.prototype.every.bind(this._array)(predicate, thisArg);
     }
 
+    /**
+     * Changes all extarray elements from `start` to `end` index to a static
+     * `value` and returns the modified extarray.
+     *
+     * @memberof Extarray
+     * @param {T} value Value to fill extarray section with.
+     * @param {number} [start] Index to start filling the extarray at. If start
+     *   is negative, it is treated as length+start where length is the length
+     *   of the extarray.
+     * @param {number} [end] Index to stop filling the extarray at. If end is
+     *   negative, it is treated as length+end.
+     * @returns {any} {this}
+     */
     fill(value: T, start?: number, end?: number): this {
         Array.prototype.fill.bind(this._array)(value, start, end);
         return this;
