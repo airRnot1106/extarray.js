@@ -601,6 +601,13 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Returns a string representation of an extarray. The elements are
+     * converted to string using their toLocaleString methods.
+     *
+     * @memberof Extarray
+     * @returns {any} {string}
+     */
     toLocaleString(): string {
         return Array.prototype.toLocaleString.bind(this._array)();
     }
