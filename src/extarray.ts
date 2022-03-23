@@ -168,6 +168,12 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Returns an iterable of key, value pairs for every entry in the extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {(IterableIterator<Extarray<number | T>>)}
+     */
     entries(): IterableIterator<Extarray<number | T>> {
         return (function* (array) {
             yield* [...array.entries()].map((value) => Extarray.extend(value));
