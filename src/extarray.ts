@@ -86,6 +86,23 @@ export class Extarray<T> {
         return arg instanceof Extarray;
     }
 
+    /**
+     * Convert an Object to an array in the form {[key]: value}[].
+     *
+     * @memberof Extarray
+     * @template T
+     * @param {{ [key: string]: T }} object Object to convert.
+     * @returns {any} {Extarray<{ [key: string]: T; }>}
+     * @static
+     */
+    static fromObject<T>(object: { [key: string]: T }): Extarray<{
+        [key: string]: T;
+    }> {
+        return Extarray.extend(
+            Object.entries(object).map(([key, value]) => ({ [key]: value }))
+        );
+    }
+
     /* *******************************
      * Accessor Method
      * ******************************/
