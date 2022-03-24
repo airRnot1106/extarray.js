@@ -103,6 +103,50 @@ export class Extarray<T> {
         );
     }
 
+    /**
+     * Creates an extarray of random numbers of a specified length and range.
+     *
+     * @memberof Extarray
+     * @param {number} length Length of the extarray.
+     * @param {number} [max=length] Maximum value of the extarray. Numerical
+     *   values are created in the range of 0 to max - 1. The default value is
+     *   the same as length. If type is 1 and max is less than length, max is
+     *   equal to length. Default is `length`
+     * @param {0 | 1} [type=0] Type of number to create. If 0, duplicate numbers
+     *   are allowed. If 1, numbers are unique. The default value is 0. Default is `0`
+     * @returns {any} {Extarray<number>}
+     * @static
+     */
+    static createRandomNumbers(
+        length: number,
+        max: number = length,
+        type: 0 | 1 = 0
+    ): Extarray<number> {
+        switch (type) {
+            case 0: {
+                const array = new Array(length);
+                for (let i = 0; i < length; i++) {
+                    array[i] = Math.floor(Math.random() * max);
+                }
+                return new Extarray(...array);
+            }
+            case 1: {
+                if (length > max) {
+                    max = length;
+                }
+                const array = new Array(length);
+                for (let i = 0; i < length; i++) {
+                    let number: number;
+                    do {
+                        number = Math.floor(Math.random() * max);
+                    } while (array.includes(number));
+                    array[i] = number;
+                }
+                return new Extarray(...array);
+            }
+        }
+    }
+
     /* *******************************
      * Accessor Method
      * ******************************/
