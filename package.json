@@ -1,8 +1,8 @@
 {
     "name": "extarray",
     "version": "0.0.1",
-    "description": "",
     "main": "index.js",
+    "description": "Useful Array Extension",
     "scripts": {
         "start-dev": "npx ts-node-dev --respawn src/index.ts",
         "build-cjs": "tsc -p tsconfig.cjs.json",
