@@ -21,7 +21,12 @@
         "type": "git",
         "url": "git+https://github.com/airRnot1106/extarray.js.git"
     },
-    "keywords": [],
+    "keywords": [
+        "extarray",
+        "extarray.js",
+        "array",
+        "extension"
+    ],
     "author": "airRnot1106 <yngw.rintaro@gmail.com>",
     "license": "MIT",
     "bugs": {
