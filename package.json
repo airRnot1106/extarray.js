@@ -1,8 +1,13 @@
 {
     "name": "extarray",
     "version": "0.0.1",
-    "description": "",
-    "main": "index.js",
+    "description": "Useful Array Extension",
+    "main": "dist/cjs/index.js",
+    "module": "dist/mjs/index.js",
+    "files": [
+        "dist",
+        "docs"
+    ],
     "scripts": {
         "start-dev": "npx ts-node-dev --respawn src/index.ts",
         "build-cjs": "tsc -p tsconfig.cjs.json",
@@ -16,7 +21,12 @@
         "type": "git",
         "url": "git+https://github.com/airRnot1106/extarray.js.git"
     },
-    "keywords": [],
+    "keywords": [
+        "extarray",
+        "extarray.js",
+        "array",
+        "extension"
+    ],
     "author": "airRnot1106 <yngw.rintaro@gmail.com>",
     "license": "MIT",
     "bugs": {
