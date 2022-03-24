@@ -905,4 +905,21 @@ export class Extarray<T> {
         this._array = [];
         return this;
     }
+    /**
+     * Extracts elements common to multiple arrays or extarrays and itself.
+     *
+     * @memberof Extarray
+     * @param {...(Extarray<T> | T[])[]} arrays The arrays or extarrays to be compared.
+     * @returns {any} {Extarray<T>}
+     */
+    extractCommon(...arrays: (Extarray<T> | T[])[]): Extarray<T> {
+        const reducer = (
+            inputArray: Extarray<T> | T[],
+            inputToExtract: Extarray<T> | T[]
+        ) => {
+            return inputArray.filter((value) => inputToExtract.includes(value));
+        };
+        const target = [[...this._array], ...arrays];
+        return Extarray.extend(target.reduce(reducer));
+    }
 }
