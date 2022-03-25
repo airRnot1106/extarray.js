@@ -801,71 +801,12 @@ export class Extarray<T> {
      * ******************************/
 
     /**
-     * Returns an unextended normal array.
-     *
-     * @memberof Extarray
-     * @returns {any} {T[]}
-     */
-    shorten(): T[] {
-        return this._array;
-    }
-
-    /**
-     * Swap the values of two indices. This changes the existing extarray.
-     *
-     * @memberof Extarray
-     * @param {number} index01 Index of the target to be swapped. If a negative
-     *   number or a number greater than the length of the extarray is
-     *   specified, an error is thrown.
-     * @param {number} index02 Index of the target to be swapped. If a negative
-     *   number or a number greater than the length of the extarray is
-     *   specified, an error is thrown.
-     * @returns {any} This
-     */
-    swap(index01: number, index02: number): this {
-        const array = this._array;
-        const index01Item = array[index01];
-        const index02Item = array[index02];
-        const isValidIndex = (
-            item: T | undefined,
-            index: number
-        ): item is T => {
-            if (!(index >= 0 && index < array.length)) return false;
-            return true;
-        };
-        if (
-            !isValidIndex(index01Item, index01) ||
-            !isValidIndex(index02Item, index02)
-        )
-            throw new Error('Cannot swap with empty items');
-        array[index01] = index02Item;
-        array[index02] = index01Item;
-        return this;
-    }
-
-    /**
-     * Shuffle the extarray with the Fisher-Yates algorithm. This changes the
-     * existing extarray.
-     *
-     * @memberof Extarray
-     * @returns {any} This
-     */
-    shuffle(): this {
-        const array = this._array;
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            this.swap(i, j);
-        }
-        return this;
-    }
-
-    /**
      * Pops an element of an extarray at random. The popped element is removed
      * from the existing extarray. If there are no elements in the extarray,
      * undefined is returned.
      *
      * @memberof Extarray
-     * @returns {any} This
+     * @returns {any} {(T | undefined)}
      */
     draw(): T | undefined {
         const drawIndex = Math.floor(Math.random() * this._array.length);
@@ -885,26 +826,16 @@ export class Extarray<T> {
     }
 
     /**
-     * Remove duplicate elements from an existing extarray.
-     *
-     * @memberof Extarray
-     * @returns {any} This
-     */
-    unique(): this {
-        this._array = [...new Set(this._array)];
-        return this;
-    }
-
-    /**
      * Empties an existing extarray.
      *
      * @memberof Extarray
-     * @returns {any} This
+     * @returns {any} {this}
      */
     drop(): this {
         this._array = [];
         return this;
     }
+
     /**
      * Extracts elements common to multiple arrays or extarrays and itself.
      *
@@ -965,5 +896,75 @@ export class Extarray<T> {
         return <Extarray<RemoveFalsyStrictly<T>>>(
             this.flatMap((value) => (value ? [value] : []))
         );
+    }
+
+    /**
+     * Returns an unextended normal array.
+     *
+     * @memberof Extarray
+     * @returns {any} {T[]}
+     */
+    shorten(): T[] {
+        return this._array;
+    }
+
+    /**
+     * Shuffle the extarray with the Fisher-Yates algorithm. This changes the
+     * existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {this}
+     */
+    shuffle(): this {
+        const array = this._array;
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            this.swap(i, j);
+        }
+        return this;
+    }
+
+    /**
+     * Swap the values of two indices. This changes the existing extarray.
+     *
+     * @memberof Extarray
+     * @param {number} index01 Index of the target to be swapped. If a negative
+     *   number or a number greater than the length of the extarray is
+     *   specified, an error is thrown.
+     * @param {number} index02 Index of the target to be swapped. If a negative
+     *   number or a number greater than the length of the extarray is
+     *   specified, an error is thrown.
+     * @returns {any} {this}
+     */
+    swap(index01: number, index02: number): this {
+        const array = this._array;
+        const index01Item = array[index01];
+        const index02Item = array[index02];
+        const isValidIndex = (
+            item: T | undefined,
+            index: number
+        ): item is T => {
+            if (!(index >= 0 && index < array.length)) return false;
+            return true;
+        };
+        if (
+            !isValidIndex(index01Item, index01) ||
+            !isValidIndex(index02Item, index02)
+        )
+            throw new Error('Cannot swap with empty items');
+        array[index01] = index02Item;
+        array[index02] = index01Item;
+        return this;
+    }
+
+    /**
+     * Remove duplicate elements from an existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {this}
+     */
+    unique(): this {
+        this._array = [...new Set(this._array)];
+        return this;
     }
 }
