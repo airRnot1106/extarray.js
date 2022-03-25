@@ -1,0 +1,50 @@
+{
+    "name": "extarray",
+    "version": "0.1.0",
+    "description": "Useful Array Extension",
+    "main": "dist/cjs/index.js",
+    "module": "dist/mjs/index.js",
+    "files": [
+        "dist",
+        "docs"
+    ],
+    "scripts": {
+        "start-dev": "npx ts-node-dev --respawn src/index.ts",
+        "build-cjs": "tsc -p tsconfig.cjs.json",
+        "build-mjs": "tsc -p tsconfig.mjs.json",
+        "build": "npm run build-cjs && npm run build-mjs",
+        "test": "jest",
+        "coverage": "jest --coverage",
+        "typedoc": "typedoc --out ./docs/ ./src/index.ts ./src/type.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/airRnot1106/extarray.js.git"
+    },
+    "keywords": [
+        "extarray",
+        "extarray.js",
+        "array",
+        "extension"
+    ],
+    "author": "airRnot1106 <yngw.rintaro@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/airRnot1106/extarray.js/issues"
+    },
+    "homepage": "https://github.com/airRnot1106/extarray.js#readme",
+    "devDependencies": {
+        "@types/jest": "^27.4.1",
+        "@typescript-eslint/eslint-plugin": "^5.10.0",
+        "@typescript-eslint/parser": "^5.10.0",
+        "eslint": "^8.7.0",
+        "eslint-config-prettier": "^8.3.0",
+        "jest": "^27.5.1",
+        "prettier": "^2.5.1",
+        "prettier-plugin-jsdoc": "^0.3.31",
+        "ts-jest": "^27.1.3",
+        "ts-node-dev": "^1.1.8",
+        "typedoc": "^0.22.13",
+        "typescript": "^4.6.2"
+    }
+}
