@@ -38,12 +38,12 @@ export class Extarray<T> {
      * existing arrays, but instead returns a new extarray.
      *
      * @memberof Extarray
-     * @template U
-     * @param {Iterable<U> | ArrayLike<U>} iterable
-     * @returns {any} {Extarray<U>}
+     * @template W
+     * @param {Iterable<W> | ArrayLike<W>} iterable
+     * @returns {any} {Extarray<W>}
      * @static
      */
-    static extend<U>(iterable: Iterable<U> | ArrayLike<U>): Extarray<U> {
+    static extend<W>(iterable: Iterable<W> | ArrayLike<W>): Extarray<W> {
         return new Extarray(...Array.from(iterable));
     }
 
@@ -51,12 +51,12 @@ export class Extarray<T> {
      * Extend all sub-array elements recursively to an extarray.
      *
      * @memberof Extarray
-     * @template U
-     * @param {Iterable<U> | ArrayLike<U>} iterable
-     * @returns {any} {ExtendAll<U[]>}
+     * @template W
+     * @param {Iterable<W> | ArrayLike<W>} iterable
+     * @returns {any} {ExtendAll<W[]>}
      * @static
      */
-    static extendAll<U>(iterable: Iterable<U> | ArrayLike<U>): ExtendAll<U[]> {
+    static extendAll<W>(iterable: Iterable<W> | ArrayLike<W>): ExtendAll<W[]> {
         const root = Array.from(iterable);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const extend = (input: unknown[]): any => {
@@ -77,12 +77,12 @@ export class Extarray<T> {
      *
      * @memberof Extarray
      * @template T
-     * @template U
-     * @param {T | Extarray<U>} arg Value to determine if Extarray.
-     * @returns {any} {arg is Extarray<U>}
+     * @template W
+     * @param {T | Extarray<W>} arg Value to determine if Extarray.
+     * @returns {any} {arg is Extarray<W>}
      * @static
      */
-    static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
+    static isExtarray<T, W>(arg: T | Extarray<W>): arg is Extarray<W> {
         return arg instanceof Extarray;
     }
 
@@ -201,12 +201,12 @@ export class Extarray<T> {
      * modifying any existing extarrays. If an Extarray is passed, it is expanded.
      *
      * @memberof Extarray
-     * @template U
-     * @param {...U[]} items Additional arrays and/or items to add to the end of
+     * @template W
+     * @param {...W[]} items Additional arrays and/or items to add to the end of
      *   the extarray.
-     * @returns {any} {(Extarray<T | U>)}
+     * @returns {any} {(Extarray<T | W>)}
      */
-    concat<U>(...items: U[]): Extarray<T | U> {
+    concat<W>(...items: W[]): Extarray<T | W> {
         return Extarray.extend(
             Array.prototype.concat.bind(this._array)(
                 items.flatMap((value) => {
@@ -453,19 +453,19 @@ export class Extarray<T> {
      * returns an extarray that contains the results.
      *
      * @memberof Extarray
-     * @template U
-     * @param {(value: T, index: number, array: T[]) => U} callbackfn A function
+     * @template W
+     * @param {(value: T, index: number, array: T[]) => W} callbackfn A function
      *   that accepts up to three arguments. The map method calls the callbackfn
      *   function one time for each element in the extarray.
      * @param {unknown} [thisArg] An object to which the this keyword can refer
      *   in the callbackfn function. If thisArg is omitted, undefined is used as
      *   the this value.
-     * @returns {any} {Extarray<U>}
+     * @returns {any} {Extarray<W>}
      */
-    map<U>(
-        callbackfn: (value: T, index: number, array: T[]) => U,
+    map<W>(
+        callbackfn: (value: T, index: number, array: T[]) => W,
         thisArg?: unknown
-    ): Extarray<U> {
+    ): Extarray<W> {
         return Extarray.extend(
             Array.prototype.map.bind(this._array)(callbackfn, thisArg)
         );
@@ -500,30 +500,30 @@ export class Extarray<T> {
      * result, and is provided as an argument in the next call to the callback function.
      *
      * @memberof Extarray
-     * @template U
+     * @template W
      * @param {(
      *     previousValue: T,
      *     currentValue: T,
      *     currentIndex: number,
      *     array: T[]
-     * ) => U} callbackfn
+     * ) => W} callbackfn
      *   A function that accepts up to four arguments. The reduce method calls the
      *   callbackfn function one time for each element in the extarray.
      * @param {T} [initialValue] F initialValue is specified, it is used as the
      *   initial value to start the accumulation. The first call to the
      *   callbackfn function provides this value as an argument instead of an
      *   extarray value.
-     * @returns {any} {U}
+     * @returns {any} {W}
      */
-    reduce<U>(
+    reduce<W>(
         callbackfn: (
             previousValue: T,
             currentValue: T,
             currentIndex: number,
             array: T[]
-        ) => U,
+        ) => W,
         initialValue?: T
-    ): U {
+    ): W {
         const func = Array.prototype.reduce.bind(this._array);
         return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
     }
@@ -535,30 +535,30 @@ export class Extarray<T> {
      * call to the callback function.
      *
      * @memberof Extarray
-     * @template U
+     * @template W
      * @param {(
      *     previousValue: T,
      *     currentValue: T,
      *     currentIndex: number,
      *     array: T[]
-     * ) => U} callbackfn
+     * ) => W} callbackfn
      *   A function that accepts up to four arguments. The reduceRight method
      *   calls the callbackfn function one time for each element in the extarray.
      * @param {T} [initialValue] If initialValue is specified, it is used as the
      *   initial value to start the accumulation. The first call to the
      *   callbackfn function provides this value as an argument instead of an
      *   extarray value.
-     * @returns {any} {U}
+     * @returns {any} {W}
      */
-    reduceRight<U>(
+    reduceRight<W>(
         callbackfn: (
             previousValue: T,
             currentValue: T,
             currentIndex: number,
             array: T[]
-        ) => U,
+        ) => W,
         initialValue?: T
-    ): U {
+    ): W {
         const func = Array.prototype.reduceRight.bind(this._array);
         return initialValue ? func(callbackfn, initialValue) : func(callbackfn);
     }
@@ -772,24 +772,24 @@ export class Extarray<T> {
      * not Array#flat.
      *
      * @memberof Extarray
-     * @template U
+     * @template W
      * @template This
-     * @param {(this: This, value: T, index: number, array: T[]) => U} callback
+     * @param {(this: This, value: T, index: number, array: T[]) => W} callback
      *   A function that accepts up to three arguments. The flatMap method calls
      *   the callback function one time for each element in the extarray.
      * @param {This} [thisArg] An object to which the this keyword can refer in
      *   the callback function. If thisArg is omitted, undefined is used as the
      *   this value.
-     * @returns {any} {(Extarray< U extends ReadonlyArray<infer InferArr> |
-     *   Extarray<infer InferArr> ? InferArr : U >)}
+     * @returns {any} {(Extarray< W extends ReadonlyArray<infer InferArr> |
+     *   Extarray<infer InferArr> ? InferArr : W >)}
      */
-    flatMap<U, This = undefined>(
-        callback: (this: This, value: T, index: number, array: T[]) => U,
+    flatMap<W, This = undefined>(
+        callback: (this: This, value: T, index: number, array: T[]) => W,
         thisArg?: This
     ): Extarray<
-        U extends ReadonlyArray<infer InferArr> | Extarray<infer InferArr>
+        W extends ReadonlyArray<infer InferArr> | Extarray<infer InferArr>
             ? InferArr
-            : U
+            : W
     > {
         return Extarray.extend(
             Array.prototype.map.bind(this._array)(callback, thisArg)
