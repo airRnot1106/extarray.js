@@ -1,4 +1,4 @@
-import { ExtendAll, FlatExtarray } from './type';
+import { ExtendAll, FlatExtarray, RemoveFalsy, RemoveFalsyStrictly } from './type';
 
 /**
  * Extarray class that extends arrays.
@@ -84,6 +84,67 @@ export class Extarray<T> {
      */
     static isExtarray<T, U>(arg: T | Extarray<U>): arg is Extarray<U> {
         return arg instanceof Extarray;
+    }
+
+    /**
+     * Convert an Object to an array in the form {[key]: value}[].
+     *
+     * @memberof Extarray
+     * @template T
+     * @param {{ [key: string]: T }} object Object to convert.
+     * @returns {any} {Extarray<{ [key: string]: T; }>}
+     * @static
+     */
+    static fromObject<T>(object: { [key: string]: T }): Extarray<{
+        [key: string]: T;
+    }> {
+        return Extarray.extend(
+            Object.entries(object).map(([key, value]) => ({ [key]: value }))
+        );
+    }
+
+    /**
+     * Creates an extarray of random numbers of a specified length and range.
+     *
+     * @memberof Extarray
+     * @param {number} length Length of the extarray.
+     * @param {number} [max=length] Maximum value of the extarray. Numerical
+     *   values are created in the range of 0 to max - 1. The default value is
+     *   the same as length. If type is 1 and max is less than length, max is
+     *   equal to length. Default is `length`
+     * @param {0 | 1} [type=0] Type of number to create. If 0, duplicate numbers
+     *   are allowed. If 1, numbers are unique. The default value is 0. Default is `0`
+     * @returns {any} {Extarray<number>}
+     * @static
+     */
+    static createRandomNumbers(
+        length: number,
+        max: number = length,
+        type: 0 | 1 = 0
+    ): Extarray<number> {
+        switch (type) {
+            case 0: {
+                const array = new Array(length);
+                for (let i = 0; i < length; i++) {
+                    array[i] = Math.floor(Math.random() * max);
+                }
+                return new Extarray(...array);
+            }
+            case 1: {
+                if (length > max) {
+                    max = length;
+                }
+                const array = new Array(length);
+                for (let i = 0; i < length; i++) {
+                    let number: number;
+                    do {
+                        number = Math.floor(Math.random() * max);
+                    } while (array.includes(number));
+                    array[i] = number;
+                }
+                return new Extarray(...array);
+            }
+        }
     }
 
     /* *******************************
@@ -719,14 +780,14 @@ export class Extarray<T> {
      * @param {This} [thisArg] An object to which the this keyword can refer in
      *   the callback function. If thisArg is omitted, undefined is used as the
      *   this value.
-     * @returns {any} {(Extarray< U extends readonly (infer InferArr)[] |
-     *   Extarray<infer InferArr> ? InferArr)}
+     * @returns {any} {(Extarray< U extends ReadonlyArray<infer InferArr> |
+     *   Extarray<infer InferArr> ? InferArr : U >)}
      */
     flatMap<U, This = undefined>(
         callback: (this: This, value: T, index: number, array: T[]) => U,
         thisArg?: This
     ): Extarray<
-        U extends readonly (infer InferArr)[] | Extarray<infer InferArr>
+        U extends ReadonlyArray<infer InferArr> | Extarray<infer InferArr>
             ? InferArr
             : U
     > {
@@ -740,6 +801,104 @@ export class Extarray<T> {
      * ******************************/
 
     /**
+     * Pops an element of an extarray at random. The popped element is removed
+     * from the existing extarray. If there are no elements in the extarray,
+     * undefined is returned.
+     *
+     * @memberof Extarray
+     * @returns {any} {(T | undefined)}
+     */
+    draw(): T | undefined {
+        const drawIndex = Math.floor(Math.random() * this._array.length);
+        return this._array.splice(drawIndex, 1)[0];
+    }
+
+    /**
+     * Returns the iterator of Extarray#draw.
+     *
+     * @memberof Extarray
+     * @returns {any} {IterableIterator<T>}
+     */
+    *drawIter(): IterableIterator<T> {
+        while (this._array.length) {
+            yield <T>this.draw();
+        }
+    }
+
+    /**
+     * Empties an existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {this}
+     */
+    drop(): this {
+        this._array = [];
+        return this;
+    }
+
+    /**
+     * Extracts elements common to multiple arrays or extarrays and itself.
+     *
+     * @memberof Extarray
+     * @param {...(Extarray<T> | T[])[]} arrays The arrays or extarrays to be compared.
+     * @returns {any} {Extarray<T>}
+     */
+    extractCommon(...arrays: (Extarray<T> | T[])[]): Extarray<T> {
+        const reducer = (
+            inputArray: Extarray<T> | T[],
+            inputToExtract: Extarray<T> | T[]
+        ) => {
+            return inputArray.filter((value) => inputToExtract.includes(value));
+        };
+        const target = [[...this._array], ...arrays];
+        return Extarray.extend(target.reduce(reducer));
+    }
+
+    /**
+     * Returns an extarray excluding false, null, and undefined from the
+     * extarray. This does not change the existing extarray. This is essentially
+     * no different than the following code.
+     *
+     * ```ts
+     * const truthyExtarray = extarray.flatMap((value) =>
+     *     value ? [value] : []
+     * );
+     * ```
+     *
+     * @memberof Extarray
+     * @returns {any} {Extarray<RemoveFalsy<T>>}
+     */
+    removeFalsy(): Extarray<RemoveFalsy<T>> {
+        return <Extarray<RemoveFalsy<T>>>(
+            this.flatMap((value) =>
+                !(<unknown[]>[false, null, undefined]).includes(value)
+                    ? [value]
+                    : []
+            )
+        );
+    }
+
+    /**
+     * Returns an extarray excluding falsy values from the extarray. This does
+     * not change the existing extarray. This is essentially no different than
+     * the following code.
+     *
+     * ```ts
+     * const truthyExtarray = extarray.flatMap((value) =>
+     *     value ? [value] : []
+     * );
+     * ```
+     *
+     * @memberof Extarray
+     * @returns {any} {Extarray<RemoveFalsyStrictly<T>>}
+     */
+    removeFalsyStrictly(): Extarray<RemoveFalsyStrictly<T>> {
+        return <Extarray<RemoveFalsyStrictly<T>>>(
+            this.flatMap((value) => (value ? [value] : []))
+        );
+    }
+
+    /**
      * Returns an unextended normal array.
      *
      * @memberof Extarray
@@ -747,6 +906,22 @@ export class Extarray<T> {
      */
     shorten(): T[] {
         return this._array;
+    }
+
+    /**
+     * Shuffle the extarray with the Fisher-Yates algorithm. This changes the
+     * existing extarray.
+     *
+     * @memberof Extarray
+     * @returns {any} {this}
+     */
+    shuffle(): this {
+        const array = this._array;
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            this.swap(i, j);
+        }
+        return this;
     }
 
     /**
@@ -759,7 +934,7 @@ export class Extarray<T> {
      * @param {number} index02 Index of the target to be swapped. If a negative
      *   number or a number greater than the length of the extarray is
      *   specified, an error is thrown.
-     * @returns {any} This
+     * @returns {any} {this}
      */
     swap(index01: number, index02: number): this {
         const array = this._array;
@@ -783,65 +958,13 @@ export class Extarray<T> {
     }
 
     /**
-     * Shuffle the extarray with the Fisher-Yates algorithm. This changes the
-     * existing extarray.
-     *
-     * @memberof Extarray
-     * @returns {any} This
-     */
-    shuffle(): this {
-        const array = this._array;
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            this.swap(i, j);
-        }
-        return this;
-    }
-
-    /**
-     * Pops an element of an extarray at random. The popped element is removed
-     * from the existing extarray. If there are no elements in the extarray,
-     * undefined is returned.
-     *
-     * @memberof Extarray
-     * @returns {any} This
-     */
-    draw(): T | undefined {
-        const drawIndex = Math.floor(Math.random() * this._array.length);
-        return this._array.splice(drawIndex, 1)[0];
-    }
-
-    /**
-     * Returns the iterator of Extarray#draw.
-     *
-     * @memberof Extarray
-     * @returns {any} {IterableIterator<T>}
-     */
-    *drawIter(): IterableIterator<T> {
-        while (this._array.length) {
-            yield <T>this.draw();
-        }
-    }
-
-    /**
      * Remove duplicate elements from an existing extarray.
      *
      * @memberof Extarray
-     * @returns {any} This
+     * @returns {any} {this}
      */
     unique(): this {
         this._array = [...new Set(this._array)];
-        return this;
-    }
-
-    /**
-     * Empties an existing extarray.
-     *
-     * @memberof Extarray
-     * @returns {any} This
-     */
-    drop(): this {
-        this._array = [];
         return this;
     }
 }
