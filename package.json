@@ -1,6 +1,6 @@
 {
     "name": "extarray",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Useful Array Extension",
     "main": "dist/cjs/index.js",
     "module": "dist/mjs/index.js",
