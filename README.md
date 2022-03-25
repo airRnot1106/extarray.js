@@ -18,7 +18,7 @@
 
 ## Install
 
-```console
+```shell
 npm install extarray
 ```
 
