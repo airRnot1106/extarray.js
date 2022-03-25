@@ -780,14 +780,14 @@ export class Extarray<T> {
      * @param {This} [thisArg] An object to which the this keyword can refer in
      *   the callback function. If thisArg is omitted, undefined is used as the
      *   this value.
-     * @returns {any} {(Extarray< U extends readonly (infer InferArr)[] |
-     *   Extarray<infer InferArr> ? InferArr)}
+     * @returns {any} {(Extarray< U extends ReadonlyArray<infer InferArr> |
+     *   Extarray<infer InferArr> ? InferArr : U >)}
      */
     flatMap<U, This = undefined>(
         callback: (this: This, value: T, index: number, array: T[]) => U,
         thisArg?: This
     ): Extarray<
-        U extends readonly (infer InferArr)[] | Extarray<infer InferArr>
+        U extends ReadonlyArray<infer InferArr> | Extarray<infer InferArr>
             ? InferArr
             : U
     > {
