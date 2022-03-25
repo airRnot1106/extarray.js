@@ -1,4 +1,4 @@
-import { ExtendAll, FlatExtarray } from './type';
+import { ExtendAll, FlatExtarray, RemoveFalsy, RemoveFalsyStrictly } from './type';
 
 /**
  * Extarray class that extends arrays.
@@ -921,5 +921,49 @@ export class Extarray<T> {
         };
         const target = [[...this._array], ...arrays];
         return Extarray.extend(target.reduce(reducer));
+    }
+
+    /**
+     * Returns an extarray excluding false, null, and undefined from the
+     * extarray. This does not change the existing extarray. This is essentially
+     * no different than the following code.
+     *
+     * ```ts
+     * const truthyExtarray = extarray.flatMap((value) =>
+     *     value ? [value] : []
+     * );
+     * ```
+     *
+     * @memberof Extarray
+     * @returns {any} {Extarray<RemoveFalsy<T>>}
+     */
+    removeFalsy(): Extarray<RemoveFalsy<T>> {
+        return <Extarray<RemoveFalsy<T>>>(
+            this.flatMap((value) =>
+                !(<unknown[]>[false, null, undefined]).includes(value)
+                    ? [value]
+                    : []
+            )
+        );
+    }
+
+    /**
+     * Returns an extarray excluding falsy values from the extarray. This does
+     * not change the existing extarray. This is essentially no different than
+     * the following code.
+     *
+     * ```ts
+     * const truthyExtarray = extarray.flatMap((value) =>
+     *     value ? [value] : []
+     * );
+     * ```
+     *
+     * @memberof Extarray
+     * @returns {any} {Extarray<RemoveFalsyStrictly<T>>}
+     */
+    removeFalsyStrictly(): Extarray<RemoveFalsyStrictly<T>> {
+        return <Extarray<RemoveFalsyStrictly<T>>>(
+            this.flatMap((value) => (value ? [value] : []))
+        );
     }
 }

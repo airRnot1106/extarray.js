@@ -36,3 +36,15 @@ export type FlatExtarray<Arr, Depth extends number> = {
 export type ExtendAll<Arr> = Arr extends ReadonlyArray<infer InferArr>
     ? Extarray<ExtendAll<InferArr>>
     : Arr;
+
+export type RemoveFalsy<T> = T extends infer U
+    ? U extends false | null | undefined
+        ? never
+        : T
+    : never;
+
+export type RemoveFalsyStrictly<T> = T extends infer U
+    ? U extends false | 0 | 0n | '' | null | undefined
+        ? never
+        : T
+    : never;
